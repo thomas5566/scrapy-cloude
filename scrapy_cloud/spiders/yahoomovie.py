@@ -9,6 +9,24 @@ class YahoomovieSpider(CrawlSpider):
     allowed_domains = ['yahoo.com.tw']
     start_urls = ["https://movies.yahoo.com.tw/movie_intheaters.html?page=1"]
 
+    custom_settings = {
+        'DOWNLOAD_DELAY': 3,
+        "ITEM_PIPELINES": {
+            'scrapy_cloud.pipelines.YahooPipeline': 100,
+            'scrapy_cloud.pipelines.DeleteNullTitlePipeline': 200,
+            'scrapy_cloud.pipelines.DuplicatesTitlePipeline': 200,
+        },
+        'AUTOTHROTTLE_ENABLED': True,
+        # The initial download delay
+        'AUTOTHROTTLE_START_DELAY': 5,
+        # The maximum download delay to be set in case of high latencies
+        'AUTOTHROTTLE_MAX_DELAY': 60,
+        # The average number of requests Scrapy should be sending in parallel to
+        # each remote server
+        'AUTOTHROTTLE_TARGET_CONCURRENCY': 1.0,
+        # "CLOSESPIDER_ITEMCOUNT": 150,
+    }
+
     rules = (
         Rule(
             LinkExtractor(restrict_xpaths="//div[@class='release_movie_name']/a"), callback="parse_item", follow=True,

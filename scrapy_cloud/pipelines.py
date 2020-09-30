@@ -63,29 +63,20 @@ def clean_contenttext(param):
     return ''.join(param)
 
 
-# class ImdbPttPipeline:
-#     def process_item(self, item, spider):
-#         movie = Movie()
-#         movie.title = clean_title(item["title"])
-#         movie.critics_consensus = clean_critics_consensus(
-#             item["critics_consensus"])
-#         movie.date = clean_date(item["date"])
-#         movie.duration = clean_duration(item["duration"])
-#         movie.genre = clean_genre(item["genre"])
-#         movie.rating = clean_rating(item["rating"])
-#         movie.images = clean_images(item["images"])
-#         movie.amount_reviews = clean_amount_reviews(item["amount_reviews"])
-#         movie.save()
-
-#         return item
-
-
-class ScrapyCloudPipeline:
+class PttPipeline:
     def process_item(self, item, spider):
         item["title"] = clean_title(item["title"])
-        # item['author'] = clean_author(item['author'])
+        item['author'] = clean_author(item['author'])
         item["date"] = clean_date(item["date"])
-        # item['contenttext'] = clean_contenttext(item['contenttext'])
+        item['contenttext'] = clean_contenttext(item['contenttext'])
+
+        return item
+
+
+class YahooPipeline:
+    def process_item(self, item, spider):
+        item["title"] = clean_title(item["title"])
+        item["date"] = clean_date(item["date"])
         item["critics_consensus"] = clean_critics_consensus(
             item["critics_consensus"])
         item['duration'] = clean_duration(item["duration"])

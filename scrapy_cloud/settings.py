@@ -62,11 +62,11 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-    'scrapy_cloud.pipelines.ScrapyCloudPipeline': 100,
-    'scrapy_cloud.pipelines.DeleteNullTitlePipeline': 200,
-    'scrapy_cloud.pipelines.DuplicatesTitlePipeline': 200,
-}
+# ITEM_PIPELINES = {
+#     'scrapy_cloud.pipelines.ScrapyCloudPipeline': 100,
+#     'scrapy_cloud.pipelines.DeleteNullTitlePipeline': 200,
+#     'scrapy_cloud.pipelines.DuplicatesTitlePipeline': 200,
+# }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

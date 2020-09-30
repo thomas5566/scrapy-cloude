@@ -10,6 +10,24 @@ class PttMoviesSpider(CrawlSpider):
     allowed_domains = ['www.ptt.cc']
     start_urls = ['https://www.ptt.cc/bbs/movie/index.html']
 
+    custom_settings = {
+        'DOWNLOAD_DELAY': 3,
+        "ITEM_PIPELINES": {
+            'scrapy_cloud.pipelines.PttPipeline': 100,
+            'scrapy_cloud.pipelines.DeleteNullTitlePipeline': 200,
+            'scrapy_cloud.pipelines.DuplicatesTitlePipeline': 200,
+        },
+        'AUTOTHROTTLE_ENABLED': True,
+        # The initial download delay
+        'AUTOTHROTTLE_START_DELAY': 5,
+        # The maximum download delay to be set in case of high latencies
+        'AUTOTHROTTLE_MAX_DELAY': 60,
+        # The average number of requests Scrapy should be sending in parallel to
+        # each remote server
+        'AUTOTHROTTLE_TARGET_CONCURRENCY': 1.0,
+        # "CLOSESPIDER_ITEMCOUNT": 150,
+    }
+
     rules = (
         Rule(LinkExtractor(
             restrict_xpaths="//div[@class='title']/a"), callback='parse_item', follow=True),
